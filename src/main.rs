@@ -1,20 +1,24 @@
 use std::io::*;
-
+mod lib;
+use lib::rot13;
 
 fn get_stdin() -> String {
     print!("Enter a string: ");
     stdout().flush().unwrap();
     
     let mut input_str: String = String::new();
-    stdin().read_line(&mut input_str);
+    stdin().read_line(&mut input_str)
+            .ok()
+            .expect("Failed to read input");
 
-    input_str.to_lowercase()
+    input_str
 }
 
 
 fn main() {
-    let alphabet: Vec<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
-    let  original_str: String = get_stdin();
-    println!("{}", original_str);
+    let original_str: String = get_stdin();
+
+    println!("ROT13 Cipher: {}", rot13(original_str));
+
 }
